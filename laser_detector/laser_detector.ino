@@ -159,6 +159,9 @@ int LaserDetect() {
 
   int verschil = AchtergrondLicht - LaserActief;
 
+  Serial.print( "verschil = ");
+  Serial.println(verschil);
+
   return verschil;
 }
 
@@ -237,6 +240,7 @@ void loop() {
   
     if (verveel_level < 3) verveel_level++;;
     ikverveelme = millis() + 60000 * 5;  //wachttijd van 5 minuten
+    Serial.print("SOUND");
     Serial.println(verveel_level);
   }
 
@@ -245,8 +249,8 @@ void loop() {
 
 
 
-  if (LaserDetect() < 100) {
-    Serial.println("1");
+  if (LaserDetect() < 20) {
+    Serial.println("SOUND1");
     effects(1);
     ikverveelme = millis() + 60000 * 5; //wachttijd van 5 minuten
     verveel_level = 1;
@@ -254,10 +258,11 @@ void loop() {
 
 
 
-    while (LaserDetect() < 100) {
+    while (LaserDetect() < 20) {
       delay(100);
       color = strip.Color(0, 255, 0);
-      for (int i = 10; i < 20; i++) strip.setPixelColor(i, color);
+      //for (int i = 10; i < 20; i++) strip.setPixelColor(i, color);
+      for (int i = 31; i < 34; i++) strip.setPixelColor(i, color);
       strip.show();
       delay(100);
       strip.clear();
